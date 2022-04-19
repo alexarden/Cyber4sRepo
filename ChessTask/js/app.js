@@ -1,7 +1,8 @@
-// Create Chess table element
 let body = document.getElementsByTagName('body');
 
 let table = document.createElement('table');
+
+const boardData = new BoardData(getInitialBoard());
 
 document.body.appendChild(table);
 
@@ -15,10 +16,7 @@ const BISHOP = 'bishop';
 const KING = 'king';
 const QUEEN = 'queen';
 
-//Make piece array and class to track them on the board
-
-let pieces = [];
-
+//Make piece class and board class
 class Piece{
   constructor(row, col, type, player){
     this.row = row;
@@ -30,6 +28,7 @@ class Piece{
  getPossibleMoves() {
   // Get relative moves
   let relativeMoves;
+
   if (this.type === PAWN) {
     relativeMoves = this.getPawnRelativeMoves();
   } else if (this.type === ROOK) {
@@ -55,7 +54,7 @@ class Piece{
       absoluteMoves.push([absoluteRow, absoluteCol]);
     }
     
-    
+    console.log(absoluteMoves);
 
     // Get filtered absolute moves
     let filteredMoves = [];
@@ -66,13 +65,12 @@ class Piece{
         filteredMoves.push(absoluteMove);
       }
     }
-    
+    console.log(filteredMoves);
     return filteredMoves;
    
   }
 
   getPawnRelativeMoves() {
-   // TODO: Give different answer to black player
    if(this.player === WHITE_PLAYER){
    return [[1, 0]];
    }else if(this.player === BLACK_PLAYER){
@@ -163,8 +161,6 @@ class BoardData {
   }
 }
 
-
-
 function getInitialBoard() { 
   let result = [];
   //Gold pieces
@@ -190,7 +186,7 @@ function getInitialBoard() {
 //add img function
 const addImage = (cell,type,player) => { 
   const image = document.createElement('img');
-  image.src =`../ChessTask/img/${player}_${type}.png`;    
+  image.src =`./img/${player}_${type}.png`;    
   image.classList.add(`${player}Pawns`)
   cell.appendChild(image);
 }
@@ -208,7 +204,7 @@ const selectCell = (e, row, col) => {
   }
 
   // Show possible moves
-  for (let piece of pieces) {
+  for (let piece of boardData.pieces) {
 
     if (piece.row === row && piece.col === col) {
       
@@ -252,7 +248,7 @@ const createChessGame = () => {
   } 
   pieces = getInitialBoard();
 
-  for (let piece of pieces) {
+  for (let piece of boardData.pieces) {
     addImage(table.rows[piece.row].cells[piece.col], piece.type, piece.player);
   }
 }
