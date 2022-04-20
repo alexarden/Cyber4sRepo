@@ -43,7 +43,7 @@ tr:nth-child(odd) :nth-child(even){
 
 /* active green border */
 
-.active{
+.select{
 border: 4px solid lime; 
 box-sizing: border-box;  
 }
