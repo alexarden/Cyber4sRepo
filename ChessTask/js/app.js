@@ -15,7 +15,8 @@ const BISHOP = 'bishop';
 const KING = 'king';
 const QUEEN = 'queen';
 
-//Make piece class and board class
+const EVENTS = [];  
+
 class Piece {
   constructor(row, col, type, player) {
     this.row = row;
@@ -54,16 +55,20 @@ class Piece {
     }
 
 
-
+    // On trial 
 
     let filteredMoves = [];
     for (let absoluteMove of absoluteMoves) {
       const absoluteRow = absoluteMove[0];
       const absoluteCol = absoluteMove[1];
       if (absoluteRow >= 0 && absoluteRow <= 7 && absoluteCol >= 0 && absoluteCol <= 7) {
-        filteredMoves.push(absoluteMove);
-      }
-    }
+       filteredMoves.push(absoluteMove);
+      } 
+    } 
+
+    console.log(filteredMoves);
+     
+    // End trial
 
     return filteredMoves;
 
@@ -85,7 +90,8 @@ class Piece {
       result.push([0, i]);
       result.push([0, -i]);
     }
-
+ 
+    console.log(result); 
     return result;
   }
   getKnightRelativeMoves() {
@@ -149,7 +155,7 @@ class BoardData {
 
   }
 
-  // Returns piece in row, col, or undefined if not exists. Work with instead of pieces array.
+
   getPiece(row, col) {
 
     let piece = undefined;
@@ -164,16 +170,52 @@ class BoardData {
     return piece;
   }
 
-  // on trial
+  movePiece(event, row, col){
 
-  getMoves(){
+    EVENTS.push(event);
+    EVENTS[clicks].eventNumber = clicks; 
+    console.log(EVENTS);
+    
+    
+    if(currentPiece === undefined){
+  
+      currentPiece = boardData.getPiece(row, col);     
+  
+    };
+  
+    if(currentPiece !== undefined){
+  
+      if(!(event.currentTarget.innerHTML) && event.path[0].classList.contains('movement')){ 
+  
+        pieceClicks++;
+        currentPiece.row = row;
+        currentPiece.col = col;
+        addImage(table.rows[currentPiece.row].cells[currentPiece.col], currentPiece.type, currentPiece.player);
+  
+          if(EVENTS[clicks-1].path.length === 8){  
+  
+            EVENTS[clicks-1].path[1].innerHTML = '';
+  
+          }else if(EVENTS[clicks-1].path.length === 7){
+            
+            EVENTS[clicks-1].path[0].innerHTML = ''; 
+  
+          };
+      }; 
+      
+    }; 
+  
+    clicks++;
+  
+    if(pieceClicks > 0){    
+      pieceClicks = 0;
+      currentPiece = undefined;
+    };
+  
+  };
+    
 
-  //TODO: !
-
-  }
-
-  // end trial
-};
+};  
 
 
 function getInitialBoard() {
@@ -225,78 +267,28 @@ const boardData = new BoardData(getInitialBoard());
 
 
 const addImage = (cell, type, player) => {
-  const image = document.createElement('img');
+  image = document.createElement('img');
   image.src = `./img/${player}_${type}.png`;
   image.classList.add(`${player}Pawns`);
   cell.appendChild(image);
 };
 
 
+
 //        ***
 //   The Click Event :
 //        ***
 
+
+
 let selectedCell; 
-let pieceClicks = 0;
-let emptyClicks = 0;
+
+let clicks = 0;  
+let pieceClicks = 0; 
 
 const selectCell = (event, row, col) => {
-   
-  // On trial, move a piece to an empty and vaild posotion.
   
-  // console.log('pieceClicks: ', pieceClicks);
-  // console.log('emptyClicks: ', emptyClicks);
-  
-  
- if(currentPiece === undefined){
-   emptyClicks++;
-   currentPiece = boardData.getPiece(row, col);
-
-  }
-
-  // && row === currentPiece.getPossibleMoves().row &&  col === currentPiece.getPossibleMoves().col
-
-
- if(currentPiece !== undefined){
-
-  
-   
-    
-    if(!(event.currentTarget.innerHTML) && event.path[0].classList.contains('movement')){ 
-     pieceClicks++;
-     currentPiece.row = row;
-     currentPiece.col = col;
-
-    }
-   
-  } 
-
-  if(pieceClicks > 1){
-    pieceClicks = 0;
-    currentPiece = undefined;
-  }
-
-  if(emptyClicks > 1){ 
-    currentPiece = undefined;
-    emptyClicks = 0;
-  }
-  
-
-
-  // console.log('row: ', row, 'col: ', col);
-
-  // let result = currentPiece.getPossibleMoves()
-
-  // console.log(currentPiece.getPossibleMoves()[0][0])   
-
-  // console.log(event.path[0].classList.contains('empty')); 
-  
-
-  
-
-  // end trial
-
- 
+  boardData.movePiece(event, row, col);
 
   for (let i = 0; i < 8; i++) {
 
@@ -312,13 +304,15 @@ const selectCell = (event, row, col) => {
 
       let possibleMoves = piece.getPossibleMoves();
       for (let possibleMove of possibleMoves) {
+
         const cell = table.rows[possibleMove[0]].cells[possibleMove[1]];
         cell.classList.add('movement');
+        
       }
-    }
+    } 
   }
 
- 
+    
   
   if (selectedCell !== undefined) {
     selectedCell.classList.remove('select');
@@ -346,15 +340,19 @@ const createChessGame = () => {
       cell.id = 'row-' + (row) + '_col-' + (col)
       cell.classList.add('empty')
       
-      cell.addEventListener('click', (event) => selectCell(event, col, row))
+      cell.addEventListener('click', (event) => selectCell(event, col, row)) 
+      
     }
 
   }
   for (let piece of boardData.pieces) { 
     addImage(table.rows[piece.row].cells[piece.col], piece.type, piece.player);
   }
-
+  
+ 
   removeEmptyFromPieces(); 
+  
+
    
  
 };
