@@ -14,19 +14,27 @@ let pieceMoves = 0;
 
 let selectedPiece;
 
-
 const WHITE_PLAYER = 'gold';
+
 const BLACK_PLAYER = 'black';
+
 const PAWN = 'pawn';
+
 const ROOK = 'rook';
+
 const KNIGHT = 'knight';
+
 const BISHOP = 'bishop';
+
 const KING = 'king';
+
 const QUEEN = 'queen';
 
 const EVENTS = [];  
 
 const CHESS_BOARD_ID = 'table-id';
+
+let turns = WHITE_PLAYER; 
 
 class Piece {
   constructor(row, col, type, player) {
@@ -260,7 +268,7 @@ const addImage = (cell, type, player) => {
 
 
 const showPieceMoves = (row, col) => {
-
+  
   for (let i = 0; i < 8; i++) {
 
     for (let j = 0; j < 8; j++) {
@@ -304,14 +312,20 @@ const showPieceMoves = (row, col) => {
 
 function movePiece(piece, row, col) {
   const possibleMoves = piece.getPossibleMoves(boardData);
+   
   
   for (const possibleMove of possibleMoves) {
     
-    if (possibleMove[0] === row && possibleMove[1] === col) {
+    if (possibleMove[0] === row && possibleMove[1] === col) {  
       
       boardData.removePiece(row, col);
       piece.row = row;
       piece.col = col;
+      if(turns === WHITE_PLAYER){
+        turns = BLACK_PLAYER
+      }else {
+        turns = WHITE_PLAYER 
+      }
       return true;
     }
   }
@@ -322,24 +336,33 @@ function movePiece(piece, row, col) {
 
 const clickOnCell = (event, row, col) => {
 
-
+  
+  
+  
   if (selectedPiece === undefined) {
 
     showPieceMoves(row, col);
 
   } else {
-    
+    if(selectedPiece.player === turns){
     if (movePiece(selectedPiece, row, col)) { 
-
+        
       selectedPiece = undefined;
       updateChessBoard(boardData);
-     
+    
 
     } else {
-
+      
       showPieceMoves(row, col);
+
     }
+  }else{
+    return selectedPiece = undefined;
   }
+    
+  }
+   
+
   
 };
 
@@ -370,16 +393,16 @@ const updateChessBoard = () => {
       const cell = rowElement.insertCell();
       cell.id = `cell-${row}-${col}`; 
       cell.addEventListener('click', (event) => clickOnCell(event, row, col)); 
-      
+     
     }
   }
 
 
- for (let piece of boardData.pieces) { 
-    addImage(table.rows[piece.row].cells[piece.col], piece.type, piece.player);
+  for (let piece of boardData.pieces) { 
+     addImage(table.rows[piece.row].cells[piece.col], piece.type, piece.player);
   } 
 
-  
+ 
 };
 
 
@@ -389,5 +412,3 @@ const updateChessBoard = () => {
 
 
 window.addEventListener('load', initGame);   
-
-
