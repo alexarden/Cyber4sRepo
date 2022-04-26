@@ -14,9 +14,11 @@ let pieceMoves = 0;
 
 let selectedPiece;
 
+
 const WHITE_PLAYER = 'gold';
 
 const BLACK_PLAYER = 'black';
+
 
 const PAWN = 'pawn';
 
@@ -30,11 +32,15 @@ const KING = 'king';
 
 const QUEEN = 'queen';
 
+
 const EVENTS = [];  
+
 
 const CHESS_BOARD_ID = 'table-id';
 
+
 let turns = WHITE_PLAYER; 
+
 
 class Piece {
   constructor(row, col, type, player) {
@@ -284,36 +290,41 @@ const showPieceMoves = (row, col) => {
 
   const piece = boardData.getPiece(row, col);
 
-  for (let piece of boardData.pieces) {
 
-    if (piece.row === row && piece.col === col) {
+  if(piece && piece.player === turns){ 
+    
+    for (let piece of boardData.pieces) {
 
-      let possibleMoves = piece.getPossibleMoves(boardData); 
-       
-      for (let possibleMove of possibleMoves) {
+      if (piece.row === row && piece.col === col) {
 
-        const cell = table.rows[possibleMove[0]].cells[possibleMove[1]];
-        cell.classList.add('movement');
+        let possibleMoves = piece.getPossibleMoves(boardData); 
         
-      }
-    } 
+        for (let possibleMove of possibleMoves) {
+
+          const cell = table.rows[possibleMove[0]].cells[possibleMove[1]];
+          cell.classList.add('movement');
+          
+        }
+      } 
+    }
+
+    if (selectedCell !== undefined) {
+      selectedCell.classList.remove('select');
+
+    };
+  
+    selectedCell = table.rows[row].cells[col];
+    selectedCell.classList.add('select');
+    selectedPiece = piece; 
+    
   }
-
-  if (selectedCell !== undefined) {
-    selectedCell.classList.remove('select');
-
-  };
- 
-  selectedCell = table.rows[row].cells[col];
-  selectedCell.classList.add('select');
-  selectedPiece = piece; 
 
 }
 
 function movePiece(piece, row, col) {
+
   const possibleMoves = piece.getPossibleMoves(boardData);
    
-  
   for (const possibleMove of possibleMoves) {
     
     if (possibleMove[0] === row && possibleMove[1] === col) {  
@@ -336,35 +347,34 @@ function movePiece(piece, row, col) {
 
 const clickOnCell = (event, row, col) => {
 
-  
-  
-  
-  if (selectedPiece === undefined) {
-
+   if (selectedPiece === undefined) {
+        
     showPieceMoves(row, col);
 
   } else {
     if(selectedPiece.player === turns){
-    if (movePiece(selectedPiece, row, col)) { 
-        
-      selectedPiece = undefined;
-      updateChessBoard(boardData);
-    
-
-    } else {
+     
+      if (movePiece(selectedPiece, row, col)) { 
+          
+        selectedPiece = undefined;
+        updateChessBoard(boardData);
       
-      showPieceMoves(row, col);
+
+      } else {
+        
+        showPieceMoves(row, col);
+
+      }
+
+    }else{
+
+     return selectedPiece = undefined;
 
     }
-  }else{
-    return selectedPiece = undefined;
-  }
     
   }
    
-
-  
-};
+ };
 
 
 
@@ -411,4 +421,4 @@ const updateChessBoard = () => {
 //TODO: add ; where necessary 
 
 
-window.addEventListener('load', initGame);   
+window.addEventListener('load', initGame);    
