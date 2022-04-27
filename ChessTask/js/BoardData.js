@@ -34,11 +34,17 @@ class BoardData {
 
     for (let i = 0; i < this.pieces.length; i++) {
 
-      const piece = this.pieces[i];
+      let piece = this.pieces[i]; 
 
       if (piece.row === row && piece.col === col) {
 
-        this.pieces.splice(i, 1);
+        if(piece.type === KING){
+          piece = piece.getOpponent(); 
+          turn = GAME_OVER;
+          winner = piece;
+        }
+
+       this.pieces.splice(i, 1);
 
       };
     }
