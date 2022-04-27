@@ -112,15 +112,18 @@ div.popup{
   background-color: rgb(246, 245, 245);
   color: black;
   border-radius: 16px;
-  box-shadow: 1px 1px 50px 4000px rgb(26, 20, 20, 0.5);    
+  box-shadow: 1px 1px 50px 4000px rgb(26, 20, 20, 0.6);    
   height: fit-content;
   width: 400px; 
   padding: 100px; 
   z-index: 1;
   font-size: 1.2em; 
   opacity: 1;
-  transition: opacity 2.5s linear;   
+  animation: fadeIn 1.5s linear none;   
+  
 } 
+
+/* Game over */
 
 div::first-letter{
   font-size: 1.6em;  
@@ -133,7 +136,7 @@ div.trapezoid{
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
   height: 0; 
-  width: 821.5px;   
+  width: 823px;    
   transform: rotateZ(180deg); 
   margin: 76px auto; 
   margin-bottom: -25px; 
@@ -180,3 +183,12 @@ div.bottom div{
 
 
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to{
+    opacity: 1;
+  }
+}

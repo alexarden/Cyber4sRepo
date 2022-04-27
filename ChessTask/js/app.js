@@ -53,48 +53,6 @@ const addImage = (cell, type, player) => {
   cell.appendChild(image);
 };
 
-const showPieceMoves = (row, col) => {   
-  
- const piece = boardData.getPiece(row, col);
-
- for (let piece of boardData.pieces) {
-
-    if (piece.row === row && piece.col === col) {
-
-      let possibleMoves = piece.getPossibleMoves(boardData); 
-      
-      for (let possibleMove of possibleMoves) {
-
-        const cell = table.rows[possibleMove[0]].cells[possibleMove[1]];
-
-        const possibleEnemy = boardData.getPiece(possibleMove[0], possibleMove[1])
-
-        if(piece && piece.player === turn){
-          
-          if(possibleEnemy){
-
-            cell.classList.add('attack');
-
-          }
-
-          cell.classList.add('movement');
-           
-        }  
-        
-      }
-
-    }; 
-    
-  }
-
-  selectedCell = table.rows[row].cells[col];
-  selectedCell.classList.add('select');
-  selectedPiece = piece;  
-      
-
-
-}; 
-
 function movePiece(piece, row, col) {
 
   const possibleMoves = piece.getPossibleMoves(boardData);
@@ -113,49 +71,32 @@ function movePiece(piece, row, col) {
       piece.col = col;
 
      return true;
-      
     };
-
   }
 
   return false;
-
-}
-
-const resetMarks = () => {
-
-  for(let i = 0; i < 8; i++){ 
-    for(let j = 0; j < 8; j++){
-      table.rows[i].cells[j].classList.remove('movement');
-      table.rows[i].cells[j].classList.remove('select'); 
-      table.rows[i].cells[j].classList.remove('attack');  
-    } 
-  } 
- 
-
-
 }
 
 const clickOnCell = (row, col) => {
 
-  resetMarks(); 
+  boardData.resetMarks(); 
 
   if (selectedPiece === undefined) {
         
-    showPieceMoves(row, col);
+    boardData.showPieceMoves(row, col); 
 
   } else { 
 
     if(selectedPiece.player === turn){
 
-     if (movePiece(selectedPiece, row, col)) { 
+     if (boardData.movePiece(selectedPiece, row, col)) {  
 
         selectedPiece = undefined;
         updateChessBoard(boardData);
 
       } else {
         
-        showPieceMoves(row, col);
+        boardData.showPieceMoves(row, col);
 
       }
 
@@ -164,21 +105,9 @@ const clickOnCell = (row, col) => {
      return selectedPiece = undefined;
 
     }
-    
   }
 
-  endGame();
-   
-};
-
-const endGame = () => {
-
-  if(turn === GAME_OVER){
-
-    body.appendChild(winnerPopUp);
-    winnerPopUp.innerHTML = `${winner} wins, Congratulations!`;  
-    winnerPopUp.classList.add('popup'); 
-  }; 
+  boardData.endGame(); 
 };
 
 const initGame = () => {
@@ -228,6 +157,6 @@ const updateChessBoard = () => {
 
 //TODO: add ; where necessary 
 
-window.addEventListener('load', initGame);  
+window.addEventListener('load', initGame);   
 
       
