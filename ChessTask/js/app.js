@@ -12,16 +12,6 @@ const BLACK_PLAYER = 'Silver';
 
 let turn = WHITE_PLAYER; 
 
-// Castle conditions.
-let goldKingDidntMove = true;
-let rightGoldRookDidntMove = true;
-let leftGoldRookDidntMove = true;
-
-let silverKingDidntMove = true; 
-let rightSilverRookDidntMove = true;
-let leftSilverRookDidntMove = true;
- 
- 
 const PAWN = 'pawn';
 const ROOK = 'rook';
 const KNIGHT = 'knight';
@@ -31,6 +21,22 @@ const QUEEN = 'queen';
 
 const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
+
+// Castle conditions.
+let goldKingDidntMove = true;
+let rightGoldRookDidntMove = true;
+let leftGoldRookDidntMove = true;
+
+let silverKingDidntMove = true; 
+let rightSilverRookDidntMove = true;
+let leftSilverRookDidntMove = true;
+
+let smallGoldCastleUsed = false;
+let smallSilverCastleUsed = false;
+let bigGoldCastleUsed = false;
+let bigSilverCastleUsed = false;
+ 
+ 
 
 function getNewBoard() {
 

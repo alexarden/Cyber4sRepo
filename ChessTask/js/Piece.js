@@ -210,18 +210,41 @@ class Piece {
 
       };
     }
+    // Small castle conditions.
 
-    if(goldKingDidntMove && leftGoldRookDidntMove && boardData.getPiece(0, 1) === undefined){
-
-       result.push([0, 1]);  
+    if(goldKingDidntMove && leftGoldRookDidntMove && boardData.getPiece(0, 1) === undefined 
+    && boardData.getPiece(0, 2) === undefined){
+      if(this.player === WHITE_PLAYER){
+       result.push([0, 1]); 
+      } 
       
     };  
 
-    if(silverKingDidntMove && leftSilverRookDidntMove && boardData.getPiece(7, 1) === undefined){ 
+    if(silverKingDidntMove && leftSilverRookDidntMove && boardData.getPiece(7, 1) === undefined 
+    && boardData.getPiece(7, 2) === undefined){ 
       if(this.player === BLACK_PLAYER){
         result.push([7, 1]);
       } 
     };  
+
+    // Big castle conditions.
+
+    if(goldKingDidntMove && rightGoldRookDidntMove && boardData.getPiece(0, 4) === undefined 
+    && boardData.getPiece(0, 5) === undefined && boardData.getPiece(0, 6) === undefined){
+
+      if(this.player === WHITE_PLAYER){
+        result.push([0, 5]); 
+      };  
+    };  
+
+    if(silverKingDidntMove && rightSilverRookDidntMove && boardData.getPiece(7, 4) === undefined 
+    && boardData.getPiece(7, 5) === undefined && boardData.getPiece(7, 6) === undefined){ 
+
+      if(this.player === BLACK_PLAYER){
+        result.push([7, 5]);
+      }; 
+    };  
+  
 
     // TODO: add big castle.
 

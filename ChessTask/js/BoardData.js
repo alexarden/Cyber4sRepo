@@ -5,24 +5,79 @@ class BoardData {
   }
 
   
+  checkForCastleUpdate(piece) {
 
-  smallCastle = () => {
+    if(piece.type === ROOK){
+
+      if(piece.BLACK_PLAYER){
+
+        if(piece.col === 7){
+          rightSilverRookDidntMove = false;
+        };
+        if(piece.col === 0){
+          leftSilverRookDidntMove = false; 
+        };
+      };
+
+      if(piece.WHITE_PLAYER){
+
+        if(piece.col === 7){
+          rightGoldRookDidntMove = false;
+        };
+        if(piece.col === 0){
+          leftGoldRookDidntMove = false; 
+        }; 
+      };
+    };
+
+    if(piece.type === KING){
+
+      if(piece.player === BLACK_PLAYER){
+       silverKingDidntMove = false; 
+      };
+      if(piece.player === WHITE_PLAYER){
+        goldKingDidntMove = false;
+      };
+    };
+  };
+  
+  trySmallCastle() {
     const goldKing = this.pieces[6];
     const leftGoldRook = this.pieces[0];
     const sliverKing = this.pieces[22];
     const leftSilverRook = this.pieces[16]; 
-    if(goldKing.row === 0 && goldKing.col === 1){
+    if(goldKing.row === 0 && goldKing.col === 1 && smallGoldCastleUsed === false){
       
       leftGoldRook.row = 0;
       leftGoldRook.col = 2;
-    }
-    if(sliverKing.row === 7 && sliverKing.col === 1){
+      smallGoldCastleUsed = true;
+    };
+    if(sliverKing.row === 7 && sliverKing.col === 1 && smallSilverCastleUsed === false){
       
       leftSilverRook.row = 7;
       leftSilverRook.col = 2; 
-    }
+      smallSilverCastleUsed = true;
+    }; 
   };    
-
+  
+  tryBigCastle() {
+    const goldKing = this.pieces[6];
+    const rightGoldRook = this.pieces[14]; 
+    const sliverKing = this.pieces[22];
+    const rightSilverRook = this.pieces[30]; 
+    if(goldKing.row === 0 && goldKing.col === 5 && bigGoldCastleUsed === false){
+      
+      rightGoldRook.row = 0;
+      rightGoldRook.col = 4;
+      bigGoldCastleUsed = true;
+    }
+    if(sliverKing.row === 7 && sliverKing.col === 5 && bigSilverCastleUsed === false){
+      
+      rightSilverRook.row = 7;
+      rightSilverRook.col = 4;  
+      bigSilverCastleUsed = true; 
+    }
+  };
 
   getPiece(row, col) {
 
@@ -77,52 +132,18 @@ class BoardData {
       
       if (possibleMove[0] === row && possibleMove[1] === col) { 
         
-        if(piece.type === ROOK){
+        this.checkForCastleUpdate(piece);
 
-          if(piece.BLACK_PLAYER){
+        this.switchTurn();
 
-            if(piece.col === 7){
-              rightSilverRookDidntMove = false;
-            };
-            if(piece.col === 0){
-              leftSilverRookDidntMove = false; 
-            };
-
-          };
-          if(piece.WHITE_PLAYER){
-
-            if(piece.col === 7){
-              rightGoldRookDidntMove = false;
-            };
-            if(piece.col === 0){
-              leftGoldRookDidntMove = false; 
-            }; 
-          } ;
-
-        };
-
-        if(piece.type === KING){
-
-          if(piece.player === BLACK_PLAYER){
-           silverKingDidntMove = false; 
-          }
-          if(piece.player === WHITE_PLAYER){
-            goldKingDidntMove = false;
-          }
-        }
-
-        
-        if(turn === WHITE_PLAYER){
-          turn = BLACK_PLAYER
-        }else {
-          turn = WHITE_PLAYER 
-        }; 
-  
         boardData.removePiece(row, col);
+
         piece.row = row;
         piece.col = col;
 
-        this.smallCastle();
+        this.trySmallCastle();
+
+        this.tryBigCastle();
   
        return true;
         
@@ -130,11 +151,18 @@ class BoardData {
   
     }
   
-    return false;
-  
+    return false;  
+  };
+
+  switchTurn() {
+    if(turn === WHITE_PLAYER){
+      turn = BLACK_PLAYER
+    }else {
+      turn = WHITE_PLAYER 
+    }; 
   }
 
-  endGame = () => {
+  endGame() {
 
     if(turn === GAME_OVER){
   
@@ -145,9 +173,9 @@ class BoardData {
     }; 
   
     
-  }; 
+  };
 
-  showPieceMoves = (row, col) => {   
+  showPieceMoves(row, col) {   
   
     const piece = boardData.getPiece(row, col);
    
@@ -186,7 +214,7 @@ class BoardData {
     selectedPiece = piece;  
   }; 
 
-  resetMarks = () => {
+  resetMarks() {
 
     for(let i = 0; i < 8; i++){ 
         
@@ -202,5 +230,5 @@ class BoardData {
       } 
     }  
   };
-  
-}   
+
+};  
