@@ -11,6 +11,16 @@ const WHITE_PLAYER = 'Gold';
 const BLACK_PLAYER = 'Silver'; 
 
 let turn = WHITE_PLAYER; 
+
+// Castle conditions.
+let goldKingDidntMove = true;
+let rightGoldRookDidntMove = true;
+let leftGoldRookDidntMove = true;
+
+let silverKingDidntMove = true; 
+let rightSilverRookDidntMove = true;
+let leftSilverRookDidntMove = true;
+ 
  
 const PAWN = 'pawn';
 const ROOK = 'rook';
@@ -40,10 +50,10 @@ function getNewBoard() {
   };
 
   addPieces(0, 1, WHITE_PLAYER);
-  addPieces(7, 6, BLACK_PLAYER);
+  addPieces(7, 6, BLACK_PLAYER);  
 
   return result;
-}
+};
 
 const addImage = (cell, type, player) => {
   image = document.createElement('img');
@@ -75,9 +85,11 @@ function movePiece(piece, row, col) {
   }
 
   return false;
-}
+};
 
 const clickOnCell = (row, col) => {
+
+  console.log(boardData.pieces);
 
   boardData.resetMarks(); 
 
@@ -91,12 +103,19 @@ const clickOnCell = (row, col) => {
 
      if (boardData.movePiece(selectedPiece, row, col)) {  
 
-        selectedPiece = undefined;
-        updateChessBoard(boardData);
+      selectedPiece = undefined;
+      updateChessBoard(boardData);
 
-      } else {
-        
-        boardData.showPieceMoves(row, col);
+      const check = (boardData) => {
+
+       
+      }
+
+      check(boardData); 
+
+    } else {
+      
+      boardData.showPieceMoves(row, col);
 
       }
 
@@ -106,6 +125,8 @@ const clickOnCell = (row, col) => {
 
     }
   }
+
+  
 
   boardData.endGame(); 
 };
@@ -155,8 +176,6 @@ const updateChessBoard = () => {
   
 };
 
-//TODO: add ; where necessary 
-
-window.addEventListener('load', initGame);   
+            window.addEventListener('load', initGame);    
 
       

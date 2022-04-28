@@ -4,6 +4,25 @@ class BoardData {
 
   }
 
+  
+
+  smallCastle = () => {
+    const goldKing = this.pieces[6];
+    const leftGoldRook = this.pieces[0];
+    const sliverKing = this.pieces[22];
+    const leftSilverRook = this.pieces[16]; 
+    if(goldKing.row === 0 && goldKing.col === 1){
+      
+      leftGoldRook.row = 0;
+      leftGoldRook.col = 2;
+    }
+    if(sliverKing.row === 7 && sliverKing.col === 1){
+      
+      leftSilverRook.row = 7;
+      leftSilverRook.col = 2; 
+    }
+  };    
+
 
   getPiece(row, col) {
 
@@ -52,10 +71,46 @@ class BoardData {
 
   movePiece(piece, row, col) {
 
+    
     const possibleMoves = piece.getPossibleMoves(boardData);  
     for (const possibleMove of possibleMoves) {
       
-      if (possibleMove[0] === row && possibleMove[1] === col) {  
+      if (possibleMove[0] === row && possibleMove[1] === col) { 
+        
+        if(piece.type === ROOK){
+
+          if(piece.BLACK_PLAYER){
+
+            if(piece.col === 7){
+              rightSilverRookDidntMove = false;
+            };
+            if(piece.col === 0){
+              leftSilverRookDidntMove = false; 
+            };
+
+          };
+          if(piece.WHITE_PLAYER){
+
+            if(piece.col === 7){
+              rightGoldRookDidntMove = false;
+            };
+            if(piece.col === 0){
+              leftGoldRookDidntMove = false; 
+            }; 
+          } ;
+
+        };
+
+        if(piece.type === KING){
+
+          if(piece.player === BLACK_PLAYER){
+           silverKingDidntMove = false; 
+          }
+          if(piece.player === WHITE_PLAYER){
+            goldKingDidntMove = false;
+          }
+        }
+
         
         if(turn === WHITE_PLAYER){
           turn = BLACK_PLAYER
@@ -66,6 +121,8 @@ class BoardData {
         boardData.removePiece(row, col);
         piece.row = row;
         piece.col = col;
+
+        this.smallCastle();
   
        return true;
         
@@ -108,13 +165,13 @@ class BoardData {
    
           if(piece && piece.player === turn){
              
-            if(possibleEnemy){
+            if(possibleEnemy && piece.player !== possibleEnemy.player){ 
    
              cell.classList.add('attack');
    
             }
    
-             cell.classList.add('movement');
+            cell.classList.add('movement');
               
           }  
            
@@ -146,4 +203,4 @@ class BoardData {
     }  
   };
   
-}  
+}   

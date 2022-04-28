@@ -12,11 +12,9 @@ class Piece {
     if (this.player === WHITE_PLAYER) {
 
       return BLACK_PLAYER;
-
     }
 
     return WHITE_PLAYER;
-
   };
 
   getPossibleMoves(boardData) {
@@ -39,9 +37,7 @@ class Piece {
       console.log("Unknown type", type) 
     }
 
-   
-
-    let filteredMoves = [];
+   let filteredMoves = [];
     for (let absoluteMove of moves) {
 
       const absoluteRow = absoluteMove[0];
@@ -53,10 +49,8 @@ class Piece {
 
       } 
     } 
-
-    
+    console.log(filteredMoves); 
     return filteredMoves;
-
   };
 
   getPawnMoves(boardData) {
@@ -64,7 +58,6 @@ class Piece {
     let result = [];
     let direction = 1;
 
-    
     if (this.player === BLACK_PLAYER) {
 
       direction = -1;
@@ -118,8 +111,7 @@ class Piece {
     result = result.concat(this.getMovesInDirection(0, -1, boardData));
     result = result.concat(this.getMovesInDirection(0, 1, boardData));
 
-    
-    return result;
+     return result;
 
   };
 
@@ -184,11 +176,9 @@ class Piece {
         result.push([row, col]); 
 
       }; 
-
     }
 
     return result;
-
   };
 
   getBishopMoves(boardData) {
@@ -201,7 +191,6 @@ class Piece {
     result = result.concat(this.getMovesInDirection(1, 1, boardData));
 
     return result;
-
   };
 
   getKingMoves(boardData) {
@@ -220,11 +209,24 @@ class Piece {
         result.push([row, col]); 
 
       };
-
     }
-    
-    return result;
 
+    if(goldKingDidntMove && leftGoldRookDidntMove && boardData.getPiece(0, 1) === undefined){
+
+       result.push([0, 1]);  
+      
+    };  
+
+    if(silverKingDidntMove && leftSilverRookDidntMove && boardData.getPiece(7, 1) === undefined){ 
+      if(this.player === BLACK_PLAYER){
+        result.push([7, 1]);
+      } 
+    };  
+
+    // TODO: add big castle.
+
+    console.log(result); 
+    return result;
   };
 
   getQueenMoves(boardData) {
@@ -234,5 +236,4 @@ class Piece {
     return result;
 
   }; 
-
 }; 

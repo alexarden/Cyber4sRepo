@@ -69,27 +69,22 @@ img.GoldPawns{
   width: 50px;
   height: 75px;
   margin-left: 22px;
-  /* background-color: (0, 0, 0, 0); */
-  /* inherits: unset;   */
-  
 }   
 
 img.SilverPawns{
   width: 45px;
   height: 80px;
   margin-left: 22px;
-  /* background-color: (0, 0, 0, 0); */
-  /* inherits: unset;   */
 } 
 
-/* selected border */
+/* selected cell border */
 
 .select{
 border: 4px solid rgb(109, 251, 109);  
 box-sizing: border-box;  
 }
 
- /* possible movment */
+ /* possible movment cell border*/
 
 .movement{
   border: 4px solid rgb(228, 247, 59);
@@ -182,6 +177,7 @@ div.bottom div{
 }
 
 
+/* Animations */
 
 @keyframes fadeIn {
   from {
@@ -191,4 +187,14 @@ div.bottom div{
   to{
     opacity: 1;
   }
+}
+
+/* Responsiveness */
+
+@media screen and (max-width: 960px){
+  
+ div.trapezoid{
+   display: none;  
+ }
+
 }
