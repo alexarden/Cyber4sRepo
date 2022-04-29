@@ -6,19 +6,15 @@ let boardData;
 let selectedCell; 
 let selectedPiece;
 let winner;
-
 const WHITE_PLAYER = 'Gold';
 const BLACK_PLAYER = 'Silver'; 
-
 let turn = WHITE_PLAYER;  
-
 const PAWN = 'pawn';
 const ROOK = 'rook';
 const KNIGHT = 'knight';
 const BISHOP = 'bishop';
 const KING = 'king';
 const QUEEN = 'queen';
-
 const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
 

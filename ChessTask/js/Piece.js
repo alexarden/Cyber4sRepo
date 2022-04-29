@@ -35,7 +35,7 @@ class Piece {
     } else if (this.type === QUEEN) {
       moves = this.getQueenMoves(boardData);  
     } else {
-      console.log("Unknown type", type) 
+      console.log("Unknown type"); 
     }
 
    let filteredMoves = [];
@@ -88,11 +88,11 @@ class Piece {
     }
 
     //first pawn move can do 2 steps or 1, else can do 1.
-    if(this.player === BLACK_PLAYER && this.row === 6){
+    if(this.player === BLACK_PLAYER && this.row === 6 && boardData.getPiece(this.row-2, this.col) === undefined){
 
-      result.push([this.row-2, this.col]) 
+      result.push([this.row-2, this.col])   
 
-    }else if(this.player === WHITE_PLAYER && this.row === 1){
+    }else if(this.player === WHITE_PLAYER && this.row === 1 && boardData.getPiece(this.row+2, this.col) === undefined){ 
 
       result.push([this.row+2, this.col])
     } ; 

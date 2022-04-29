@@ -230,13 +230,14 @@ class BoardData {
           if(piece && piece.player === turn){
              
             if(possibleEnemy && piece.player !== possibleEnemy.player){ 
-   
-             cell.classList.add('attack');
-            };
+
+              cell.classList.add('attack');
+            };  
             
             this.castleMarkConditions(piece);  
     
             cell.classList.add('movement');
+
           }; 
         }
       }; 
