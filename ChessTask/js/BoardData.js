@@ -72,24 +72,21 @@ class BoardData {
 
     console.log(blackKing.player) 
     console.log(turn) 
-
-    if(this.getPiece(0, 3) !== undefined && turn === whiteKing.player){
-      if(whiteKing.row === 0 && whiteKing.col === 1 && this.smallWhiteCastleUsed === false){
-        
-        leftWhiteRook.row = 0;
-        leftWhiteRook.col = 2;
-        this.smallWhiteCastleUsed = true;
-      };
+    
+    if(whiteKing.row === 0 && whiteKing.col === 1 && this.smallWhiteCastleUsed === false){
+      
+      leftWhiteRook.row = 0;
+      leftWhiteRook.col = 2;
+      this.smallWhiteCastleUsed = true;
     };
-
-    if(this.getPiece(7, 3) !== undefined && turn === blackKing.player){
-      if(blackKing.row === 7 && blackKing.col === 1 && this.smallBlackCastleUsed === false){
-        
-        leftBlackRook.row = 7;
-        leftBlackRook.col = 2; 
-        this.smallBlackCastleUsed = true; 
-      }; 
-    };
+    
+    if(blackKing.row === 7 && blackKing.col === 1 && this.smallBlackCastleUsed === false){
+      
+      leftBlackRook.row = 7;
+      leftBlackRook.col = 2; 
+      this.smallBlackCastleUsed = true; 
+    }; 
+    
   };    
    
   tryBigCastle() {
@@ -98,23 +95,20 @@ class BoardData {
     const blackKing = this.getPieceById(19);
     const rightBlackRook = this.getPieceById(23); 
     
-   if(this.getPiece(0,3) !== undefined){
-      if(whiteKing.row === 0 && whiteKing.col === 5 && this.bigWhiteCastleUsed === false){
-        
-        rightWhiteRook.row = 0;
-        rightWhiteRook.col = 4;
-        this.bigWhiteCastleUsed = true;
-      };
+    if(whiteKing.row === 0 && whiteKing.col === 5 && this.bigWhiteCastleUsed === false){
+      
+      rightWhiteRook.row = 0;
+      rightWhiteRook.col = 4;
+      this.bigWhiteCastleUsed = true;
+    }; 
+    
+    if(blackKing.row === 7 && blackKing.col === 5 && this.bigBlackCastleUsed === false){
+      
+      rightBlackRook.row = 7;
+      rightBlackRook.col = 4;  
+      this.bigBlackCastleUsed = true;  
     };
-
-    if(this.getPiece(7,3) !== undefined){
-      if(blackKing.row === 7 && blackKing.col === 5 && this.bigBlackCastleUsed === false){
-        
-        rightBlackRook.row = 7;
-        rightBlackRook.col = 4;  
-        this.bigBlackCastleUsed = true;  
-      };
-    };
+   
   };
 
   getPiece(row, col) {
@@ -179,7 +173,7 @@ class BoardData {
         this.checkForCastleUpdate(piece);
 
         if(turn !== GAME_OVER){
-        
+         console.log(1)
          this.trySmallCastle();
         
          this.tryBigCastle();

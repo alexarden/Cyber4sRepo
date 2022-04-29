@@ -22,7 +22,6 @@ const QUEEN = 'queen';
 const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
 
-//XXX: fix king cant die in his place bug;
 //TODO: add check feature.
 
 function getNewBoard() {
