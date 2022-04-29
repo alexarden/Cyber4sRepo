@@ -49,7 +49,7 @@ class Piece {
        filteredMoves.push(absoluteMove);
       };
     } 
-    console.log(filteredMoves); 
+     
     return filteredMoves;
   };
 

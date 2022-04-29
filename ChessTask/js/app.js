@@ -10,7 +10,7 @@ let winner;
 const WHITE_PLAYER = 'Gold';
 const BLACK_PLAYER = 'Silver'; 
 
-let turn = WHITE_PLAYER; 
+let turn = WHITE_PLAYER;  
 
 const PAWN = 'pawn';
 const ROOK = 'rook';
@@ -21,6 +21,9 @@ const QUEEN = 'queen';
 
 const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
+
+//XXX: fix king cant die in his place bug;
+//TODO: add check feature.
 
 function getNewBoard() {
 
@@ -52,33 +55,7 @@ const addImage = (cell, type, player) => {
   cell.appendChild(image);
 };
 
-function movePiece(piece, row, col) {
-
-  const possibleMoves = piece.getPossibleMoves(boardData);
-  for (const possibleMove of possibleMoves) {
-    
-    if (possibleMove[0] === row && possibleMove[1] === col) {  
-      
-      if(turn === WHITE_PLAYER){
-        turn = BLACK_PLAYER
-      }else {
-        turn = WHITE_PLAYER 
-      }; 
-
-      boardData.removePiece(row, col);
-      piece.row = row;
-      piece.col = col;
-
-     return true;
-    };
-  }
-
-  return false;
-};
-
 const clickOnCell = (row, col) => {
-
-  console.log(boardData.pieces); 
 
   boardData.resetMarks(); 
 
@@ -88,31 +65,26 @@ const clickOnCell = (row, col) => {
 
   } else { 
 
-    if(selectedPiece.player === turn){
+    if(selectedPiece.player === turn){ 
 
-     if (boardData.movePiece(selectedPiece, row, col)) {  
+      if (boardData.movePiece(selectedPiece, row, col)) {  
 
-      selectedPiece = undefined;
-      updateChessBoard(boardData);
+       selectedPiece = undefined;
+       updateChessBoard(boardData);
 
-      //TODO: work on check feature.
-
-    } else {
+      } else {
       
-      boardData.showPieceMoves(row, col);
-
+       boardData.showPieceMoves(row, col);
       }
 
     }else{
 
      return selectedPiece = undefined;
 
-    }
-  }
+    };
+  };
 
-  
-
-  boardData.endGame(); 
+ boardData.endGame(); 
 };
 
 const initGame = () => {

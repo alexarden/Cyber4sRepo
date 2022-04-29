@@ -1,12 +1,12 @@
 class BoardData {
   constructor(pieces) {
     this.pieces = pieces;
-
+    
     // Castle conditions.
 
     this.whiteKingDidntMove = true;
     this.rightWhiteRookDidntMove = true;
-    this.leftWhiteRookDidntMove = true;
+    this.leftWhiteRookDidntMove = true; 
     this.blackKingDidntMove = true; 
     this.rightBlackRookDidntMove = true;
     this.leftBlackRookDidntMove = true;
@@ -28,7 +28,7 @@ class BoardData {
       
   }; 
   
-   checkForCastleUpdate(piece) {
+  checkForCastleUpdate(piece) {
 
     if(piece.type === ROOK){
 
@@ -68,39 +68,53 @@ class BoardData {
     const whiteKing = this.getPieceById(3);
     const leftWhiteRook = this.getPieceById(0); 
     const blackKing = this.getPieceById(19);
-    const leftBlackRook = this.getPieceById(16);    
- 
-    if(whiteKing.row === 0 && whiteKing.col === 1 && this.smallWhiteCastleUsed === false){
-      
-      leftWhiteRook.row = 0;
-      leftWhiteRook.col = 2;
-      this.smallWhiteCastleUsed = true;
+    const leftBlackRook = this.getPieceById(16);  
+
+    console.log(blackKing.player) 
+    console.log(turn) 
+
+    if(this.getPiece(0, 3) !== undefined && turn === whiteKing.player){
+      if(whiteKing.row === 0 && whiteKing.col === 1 && this.smallWhiteCastleUsed === false){
+        
+        leftWhiteRook.row = 0;
+        leftWhiteRook.col = 2;
+        this.smallWhiteCastleUsed = true;
+      };
     };
-    if(blackKing.row === 7 && blackKing.col === 1 && this.smallBlackCastleUsed === false){
-      
-      leftBlackRook.row = 7;
-      leftBlackRook.col = 2; 
-      this.smallBlackCastleUsed = true; 
-    }; 
+
+    if(this.getPiece(7, 3) !== undefined && turn === blackKing.player){
+      if(blackKing.row === 7 && blackKing.col === 1 && this.smallBlackCastleUsed === false){
+        
+        leftBlackRook.row = 7;
+        leftBlackRook.col = 2; 
+        this.smallBlackCastleUsed = true; 
+      }; 
+    };
   };    
    
   tryBigCastle() {
     const whiteKing = this.getPieceById(3);
     const rightWhiteRook = this.getPieceById(7); 
     const blackKing = this.getPieceById(19);
-    const rightBlackRook = this.getPieceById(23);  
-    if(whiteKing.row === 0 && whiteKing.col === 5 && this.bigWhiteCastleUsed === false){
-      
-      rightWhiteRook.row = 0;
-      rightWhiteRook.col = 4;
-      this.bigWhiteCastleUsed = true;
-    }
-    if(blackKing.row === 7 && blackKing.col === 5 && this.bigBlackCastleUsed === false){
-      
-      rightBlackRook.row = 7;
-      rightBlackRook.col = 4;  
-      this.bigBlackCastleUsed = true;  
-    }
+    const rightBlackRook = this.getPieceById(23); 
+    
+   if(this.getPiece(0,3) !== undefined){
+      if(whiteKing.row === 0 && whiteKing.col === 5 && this.bigWhiteCastleUsed === false){
+        
+        rightWhiteRook.row = 0;
+        rightWhiteRook.col = 4;
+        this.bigWhiteCastleUsed = true;
+      };
+    };
+
+    if(this.getPiece(7,3) !== undefined){
+      if(blackKing.row === 7 && blackKing.col === 5 && this.bigBlackCastleUsed === false){
+        
+        rightBlackRook.row = 7;
+        rightBlackRook.col = 4;  
+        this.bigBlackCastleUsed = true;  
+      };
+    };
   };
 
   getPiece(row, col) {
@@ -110,7 +124,6 @@ class BoardData {
       if (piece.row === row && piece.col === col) {
 
         return piece;
-
       };
     }
   };
@@ -137,8 +150,10 @@ class BoardData {
       if (piece.row === row && piece.col === col) {
 
         if(piece.type === KING){
+          console.log('king died'); 
           piece = piece.getOpponent(); 
           turn = GAME_OVER;
+          console.log(turn);
           winner = piece;
         }
 
@@ -149,7 +164,7 @@ class BoardData {
   };
 
   movePiece(piece, row, col) {
-
+    
     const possibleMoves = piece.getPossibleMoves(boardData);  
     for (const possibleMove of possibleMoves) {
       
@@ -163,11 +178,14 @@ class BoardData {
         
         this.checkForCastleUpdate(piece);
 
-        this.trySmallCastle();
-
-        this.tryBigCastle();
-
-        this.switchTurn(); 
+        if(turn !== GAME_OVER){
+        
+         this.trySmallCastle();
+        
+         this.tryBigCastle();
+         
+         this.switchTurn();  
+        }; 
   
        return true;
       };
@@ -177,7 +195,10 @@ class BoardData {
   };
 
   switchTurn() {
-    if(turn === WHITE_PLAYER){
+    if(turn === GAME_OVER){
+      return true; 
+    }
+    if(turn === WHITE_PLAYER){ 
       turn = BLACK_PLAYER;
     }else {
       turn = WHITE_PLAYER; 
@@ -186,7 +207,8 @@ class BoardData {
 
   endGame() {
 
-    if(turn === GAME_OVER){
+    if(turn === GAME_OVER){  
+      
   
       body.appendChild(winnerPopUp);
       winnerPopUp.innerHTML = `${winner} wins, Congratulations! <br> Refresh to start again`;    
@@ -238,7 +260,7 @@ class BoardData {
         table.rows[i].cells[j].classList.remove('movement');
         table.rows[i].cells[j].classList.remove('select'); 
         table.rows[i].cells[j].classList.remove('attack');  
-        if(turn === GAME_OVER){
+        if(turn === GAME_OVER){ 
             
           table.rows[i].cells[j].removeEventListener('click', clickOnCell()); 
         };
