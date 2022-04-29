@@ -233,7 +233,9 @@ class BoardData {
    
              cell.classList.add('attack');
             };
-   
+            
+            this.castleMarkConditions(piece);  
+    
             cell.classList.add('movement');
           }; 
         }
@@ -261,5 +263,34 @@ class BoardData {
       } 
     }  
   };
+
+  castleMarkConditions(piece) { 
+
+    if(piece.type === KING){
+
+      if(this.whiteKingDidntMove && turn === WHITE_PLAYER){
+
+        if(boardData.getPiece(0, 1) === undefined){
+        table.rows[0].cells[1].classList.add('castle');
+        };
+
+        if(boardData.getPiece(0, 5) === undefined){
+        table.rows[0].cells[5].classList.add('castle');
+        }; 
+      };
+
+      if(this.blackKingDidntMove && turn === BLACK_PLAYER){ 
+
+        if(boardData.getPiece(7, 1) === undefined){
+        table.rows[7].cells[1].classList.add('castle');
+        };
+
+        if(boardData.getPiece(7, 5) === undefined){
+        table.rows[7].cells[5].classList.add('castle'); 
+        };
+      };
+    };
+
+  }
 
 };  

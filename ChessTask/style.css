@@ -77,23 +77,23 @@ img.SilverPawns{
   margin-left: 22px;
 } 
 
-/* selected cell border */
+/* cell movements styles */
 
 .select{
 border: 4px solid rgb(109, 251, 109);  
 box-sizing: border-box;  
 }
 
- /* possible movment cell border*/
-
 .movement{
   border: 4px solid rgb(228, 247, 59);
 }
 
-/* if you can eat enemy piece */
-
 .attack{
   border: 3px solid rgb(250, 91, 91);  
+}
+
+.castle{
+  border: 1px solid blue;  
 }
 
 /* Winner pop up  */
