@@ -210,7 +210,7 @@ class Piece {
     }
     // Small castle conditions.
 
-    if(whiteKingDidntMove && leftWhiteRookDidntMove && boardData.getPiece(0, 1) === undefined 
+    if(boardData.whiteKingDidntMove && boardData.leftWhiteRookDidntMove && boardData.getPiece(0, 1) === undefined 
     && boardData.getPiece(0, 2) === undefined){
       if(this.player === WHITE_PLAYER){
        result.push([0, 1]); 
@@ -218,7 +218,7 @@ class Piece {
       
     };  
 
-    if(blackKingDidntMove && leftBlackRookDidntMove && boardData.getPiece(7, 1) === undefined 
+    if(boardData.blackKingDidntMove && boardData.leftBlackRookDidntMove && boardData.getPiece(7, 1) === undefined 
     && boardData.getPiece(7, 2) === undefined){ 
       if(this.player === BLACK_PLAYER){
         result.push([7, 1]);
@@ -227,7 +227,7 @@ class Piece {
 
     // Big castle conditions.
 
-    if(whiteKingDidntMove && rightWhiteRookDidntMove && boardData.getPiece(0, 4) === undefined 
+    if(boardData.whiteKingDidntMove && boardData.rightWhiteRookDidntMove && boardData.getPiece(0, 4) === undefined 
     && boardData.getPiece(0, 5) === undefined && boardData.getPiece(0, 6) === undefined){
 
       if(this.player === WHITE_PLAYER){
@@ -235,7 +235,7 @@ class Piece {
       };  
     };  
 
-    if(blackKingDidntMove && rightBlackRookDidntMove && boardData.getPiece(7, 4) === undefined  
+    if(boardData.blackKingDidntMove && boardData.rightBlackRookDidntMove && boardData.getPiece(7, 4) === undefined  
     && boardData.getPiece(7, 5) === undefined && boardData.getPiece(7, 6) === undefined){ 
 
       if(this.player === BLACK_PLAYER){

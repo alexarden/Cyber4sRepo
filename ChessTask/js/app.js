@@ -22,20 +22,6 @@ const QUEEN = 'queen';
 const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
 
-// Castle conditions.
-let whiteKingDidntMove = true;
-let rightWhiteRookDidntMove = true;
-let leftWhiteRookDidntMove = true;
-
-let blackKingDidntMove = true; 
-let rightBlackRookDidntMove = true;
-let leftBlackRookDidntMove = true;
-
-let smallWhiteCastleUsed = false;
-let smallBlackCastleUsed = false;
-let bigWhiteCastleUsed = false;
-let bigBlackCastleUsed = false;
-
 function getNewBoard() {
 
   let result = [];
@@ -109,12 +95,7 @@ const clickOnCell = (row, col) => {
       selectedPiece = undefined;
       updateChessBoard(boardData);
 
-      // const check = (boardData) => {
-
-       
-      // }
-
-      // check(boardData);  
+      //TODO: work on check feature.
 
     } else {
       
