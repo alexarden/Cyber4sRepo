@@ -19,6 +19,8 @@ const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
 
 //TODO: add check feature.
+//TODO: fix castle bugs like when no castle can be made dont show it,
+// and rules of castle.  
 
 function getNewBoard() {
 

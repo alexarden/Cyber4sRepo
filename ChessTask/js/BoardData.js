@@ -6,10 +6,10 @@ class BoardData {
 
     this.whiteKingDidntMove = true;
     this.rightWhiteRookDidntMove = true;
-    this.leftWhiteRookDidntMove = true; 
+    this.leftWhiteRookDidntMove = true;  
     this.blackKingDidntMove = true; 
     this.rightBlackRookDidntMove = true;
-    this.leftBlackRookDidntMove = true;
+    this.leftBlackRookDidntMove = true; 
 
     this.smallWhiteCastleUsed = false;
     this.smallBlackCastleUsed = false;
@@ -30,28 +30,33 @@ class BoardData {
   
   checkForCastleUpdate(piece) {
 
+
+   
+     
     if(piece.type === ROOK){
-
-      if(piece.BLACK_PLAYER){
-
-        if(piece.col === 7){
+      
+      if(piece.player === BLACK_PLAYER){
+        
+        if(piece.col !== 7  || piece.row !== 0){
+          
           this.rightBlackRookDidntMove = false;
         };
-        if(piece.col === 0){
-          this.leftBlackRookDidntMove = false; 
+        if(piece.col !== 0  || piece.row !== 0){
+           
+          this.leftBlackRookDidntMove = false;  
         };
       };
 
-      if(piece.WHITE_PLAYER){
+      if(piece.player === WHITE_PLAYER){
 
-        if(piece.col === 7){
+        if(piece.col !== 7  || piece.row !== 7){
           this.rightWhiteRookDidntMove = false;
         };
-        if(piece.col === 0){
-          this.leftWhiteRookDidntMove = false; 
+        if(piece.col !== 0  || piece.row !== 7){
+          this.leftWhiteRookDidntMove = false;  
         }; 
       };
-    };
+    }; 
 
     if(piece.type === KING){
 
@@ -257,6 +262,7 @@ class BoardData {
         table.rows[i].cells[j].classList.remove('movement');
         table.rows[i].cells[j].classList.remove('select'); 
         table.rows[i].cells[j].classList.remove('attack');  
+        table.rows[i].cells[j].classList.remove('castle');   
         if(turn === GAME_OVER){ 
             
           table.rows[i].cells[j].removeEventListener('click', clickOnCell()); 
