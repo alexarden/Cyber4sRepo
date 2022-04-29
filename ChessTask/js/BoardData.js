@@ -6,7 +6,8 @@ class BoardData {
 
     this.whiteKingDidntMove = true;
     this.rightWhiteRookDidntMove = true;
-    this.leftWhiteRookDidntMove = true;  
+    this.leftWhiteRookDidntMove = true; 
+
     this.blackKingDidntMove = true; 
     this.rightBlackRookDidntMove = true;
     this.leftBlackRookDidntMove = true; 
@@ -30,10 +31,7 @@ class BoardData {
   
   checkForCastleUpdate(piece) {
 
-
-   
-     
-    if(piece.type === ROOK){
+   if(piece.type === ROOK){
       
       if(piece.player === BLACK_PLAYER){
         
@@ -70,47 +68,47 @@ class BoardData {
   };
   
   trySmallCastle() {
-    const whiteKing = this.getPieceById(3);
+    const whiteKing = this.getPieceById(4);
     const leftWhiteRook = this.getPieceById(0); 
-    const blackKing = this.getPieceById(19);
+    const blackKing = this.getPieceById(20);
     const leftBlackRook = this.getPieceById(16);  
 
     console.log(blackKing.player) 
     console.log(turn) 
     
-    if(whiteKing.row === 0 && whiteKing.col === 1 && this.smallWhiteCastleUsed === false){
+    if(whiteKing.row === 0 && whiteKing.col === 2 && this.smallWhiteCastleUsed === false){
       
       leftWhiteRook.row = 0;
-      leftWhiteRook.col = 2;
+      leftWhiteRook.col = 3;
       this.smallWhiteCastleUsed = true;
     };
     
-    if(blackKing.row === 7 && blackKing.col === 1 && this.smallBlackCastleUsed === false){
+    if(blackKing.row === 7 && blackKing.col === 2 && this.smallBlackCastleUsed === false){
       
       leftBlackRook.row = 7;
-      leftBlackRook.col = 2; 
+      leftBlackRook.col = 3; 
       this.smallBlackCastleUsed = true; 
     }; 
     
   };    
    
   tryBigCastle() {
-    const whiteKing = this.getPieceById(3);
+    const whiteKing = this.getPieceById(4);
     const rightWhiteRook = this.getPieceById(7); 
-    const blackKing = this.getPieceById(19);
+    const blackKing = this.getPieceById(20);
     const rightBlackRook = this.getPieceById(23); 
     
-    if(whiteKing.row === 0 && whiteKing.col === 5 && this.bigWhiteCastleUsed === false){
+    if(whiteKing.row === 0 && whiteKing.col === 6 && this.bigWhiteCastleUsed === false){
       
       rightWhiteRook.row = 0;
-      rightWhiteRook.col = 4;
+      rightWhiteRook.col = 5;
       this.bigWhiteCastleUsed = true;
     }; 
     
-    if(blackKing.row === 7 && blackKing.col === 5 && this.bigBlackCastleUsed === false){
+    if(blackKing.row === 7 && blackKing.col === 6 && this.bigBlackCastleUsed === false){
       
       rightBlackRook.row = 7;
-      rightBlackRook.col = 4;  
+      rightBlackRook.col = 5;     
       this.bigBlackCastleUsed = true;  
     };
    
@@ -278,22 +276,22 @@ class BoardData {
       if(this.whiteKingDidntMove && turn === WHITE_PLAYER){
 
         if(boardData.getPiece(0, 1) === undefined){
-        table.rows[0].cells[1].classList.add('castle');
+        table.rows[0].cells[2].classList.add('castle');
         };
 
         if(boardData.getPiece(0, 5) === undefined){
-        table.rows[0].cells[5].classList.add('castle');
+        table.rows[0].cells[6].classList.add('castle'); 
         }; 
       };
 
       if(this.blackKingDidntMove && turn === BLACK_PLAYER){ 
 
         if(boardData.getPiece(7, 1) === undefined){
-        table.rows[7].cells[1].classList.add('castle');
+        table.rows[7].cells[2].classList.add('castle');
         };
 
         if(boardData.getPiece(7, 5) === undefined){
-        table.rows[7].cells[5].classList.add('castle'); 
+        table.rows[7].cells[6].classList.add('castle'); 
         };
       };
     };

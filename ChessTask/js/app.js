@@ -18,15 +18,17 @@ const QUEEN = 'queen';
 const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
 
+ 
 //TODO: add check feature.
 //TODO: fix castle bugs like when no castle can be made dont show it,
-// and rules of castle.  
+// and rules of castle. 
+//TODO: corrected king and queen positions, need to fix castles. 
 
 function getNewBoard() {
 
   let result = [];
 
-  const pieces = [ROOK, KNIGHT, BISHOP, KING, QUEEN, BISHOP, KNIGHT, ROOK ];
+  const pieces = [ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KNIGHT, ROOK ]; 
 
   const addPieces = (row, pawnRow, player, id) => {
 
@@ -53,6 +55,8 @@ const addImage = (cell, type, player) => {
 };
 
 const clickOnCell = (row, col) => {
+
+  console.log(boardData.pieces); 
 
   boardData.resetMarks(); 
 
@@ -131,4 +135,4 @@ const updateChessBoard = () => {
 
 window.addEventListener('load', initGame);    
 
-      
+

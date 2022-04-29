@@ -210,36 +210,36 @@ class Piece {
     }
     // Small castle conditions.
 
-    if(boardData.whiteKingDidntMove && boardData.leftWhiteRookDidntMove && boardData.getPiece(0, 1) === undefined 
-    && boardData.getPiece(0, 2) === undefined){
+    if(boardData.whiteKingDidntMove && boardData.leftWhiteRookDidntMove && boardData.getPiece(0, 5) === undefined 
+    && boardData.getPiece(0, 6) === undefined){
       if(this.player === WHITE_PLAYER){
-       result.push([0, 1]); 
+       result.push([0, 6]); 
       } 
       
     };  
 
-    if(boardData.blackKingDidntMove && boardData.leftBlackRookDidntMove && boardData.getPiece(7, 1) === undefined 
-    && boardData.getPiece(7, 2) === undefined){ 
+    if(boardData.blackKingDidntMove && boardData.leftBlackRookDidntMove && boardData.getPiece(7, 5) === undefined 
+    && boardData.getPiece(7, 6) === undefined){ 
       if(this.player === BLACK_PLAYER){
-        result.push([7, 1]);
+        result.push([7, 6]);
       } 
     };  
 
     // Big castle conditions.
 
-    if(boardData.whiteKingDidntMove && boardData.rightWhiteRookDidntMove && boardData.getPiece(0, 4) === undefined 
-    && boardData.getPiece(0, 5) === undefined && boardData.getPiece(0, 6) === undefined){
+    if(boardData.whiteKingDidntMove && boardData.rightWhiteRookDidntMove && boardData.getPiece(0, 1) === undefined 
+    && boardData.getPiece(0, 2) === undefined && boardData.getPiece(0, 3) === undefined){
 
       if(this.player === WHITE_PLAYER){
-        result.push([0, 5]); 
+        result.push([0, 2]); 
       };  
     };  
 
-    if(boardData.blackKingDidntMove && boardData.rightBlackRookDidntMove && boardData.getPiece(7, 4) === undefined  
-    && boardData.getPiece(7, 5) === undefined && boardData.getPiece(7, 6) === undefined){ 
+    if(boardData.blackKingDidntMove && boardData.rightBlackRookDidntMove && boardData.getPiece(7, 1) === undefined  
+    && boardData.getPiece(7, 2) === undefined && boardData.getPiece(7, 3) === undefined){  
 
-      if(this.player === BLACK_PLAYER){
-        result.push([7, 5]);
+      if(this.player === BLACK_PLAYER){ 
+        result.push([7, 2]);
       }; 
     };  
   
