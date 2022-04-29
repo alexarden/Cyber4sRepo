@@ -23,20 +23,18 @@ const CHESS_BOARD_ID = 'table-id';
 const GAME_OVER = 'game over'; 
 
 // Castle conditions.
-let goldKingDidntMove = true;
-let rightGoldRookDidntMove = true;
-let leftGoldRookDidntMove = true;
+let whiteKingDidntMove = true;
+let rightWhiteRookDidntMove = true;
+let leftWhiteRookDidntMove = true;
 
-let silverKingDidntMove = true; 
-let rightSilverRookDidntMove = true;
-let leftSilverRookDidntMove = true;
+let blackKingDidntMove = true; 
+let rightBlackRookDidntMove = true;
+let leftBlackRookDidntMove = true;
 
-let smallGoldCastleUsed = false;
-let smallSilverCastleUsed = false;
-let bigGoldCastleUsed = false;
-let bigSilverCastleUsed = false;
- 
- 
+let smallWhiteCastleUsed = false;
+let smallBlackCastleUsed = false;
+let bigWhiteCastleUsed = false;
+let bigBlackCastleUsed = false;
 
 function getNewBoard() {
 
@@ -44,19 +42,18 @@ function getNewBoard() {
 
   const pieces = [ROOK, KNIGHT, BISHOP, KING, QUEEN, BISHOP, KNIGHT, ROOK ];
 
-  const addPieces = (row, pawnRow, player) => {
+  const addPieces = (row, pawnRow, player, id) => {
 
-     for (let i = 0; i < 8; i++) { 
+    for (let i = 0; i < 8; i++) { 
 
-      result.push(new Piece(row, i, pieces[i], player));
-      result.push(new Piece(pawnRow, i, PAWN, player));
+      result.push(new Piece(row, i, pieces[i], player, id + i));
+      result.push(new Piece(pawnRow, i, PAWN, player, id + i + 8)); 
 
     };  
-
   };
 
-  addPieces(0, 1, WHITE_PLAYER);
-  addPieces(7, 6, BLACK_PLAYER);  
+  addPieces(0, 1, WHITE_PLAYER, 0);
+  addPieces(7, 6, BLACK_PLAYER, 16);   
 
   return result;
 };
@@ -95,7 +92,7 @@ function movePiece(piece, row, col) {
 
 const clickOnCell = (row, col) => {
 
-  console.log(boardData.pieces);
+  console.log(boardData.pieces); 
 
   boardData.resetMarks(); 
 
@@ -112,12 +109,12 @@ const clickOnCell = (row, col) => {
       selectedPiece = undefined;
       updateChessBoard(boardData);
 
-      const check = (boardData) => {
+      // const check = (boardData) => {
 
        
-      }
+      // }
 
-      check(boardData); 
+      // check(boardData);  
 
     } else {
       
@@ -182,6 +179,6 @@ const updateChessBoard = () => {
   
 };
 
-            window.addEventListener('load', initGame);    
+window.addEventListener('load', initGame);    
 
       

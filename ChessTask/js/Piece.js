@@ -1,10 +1,11 @@
 class Piece {
-  constructor(row, col, type, player) {
+  constructor(row, col, type, player, id) {
     this.row = row;
     this.col = col;
     this.player = player;
     this.type = type;
-  }
+    this.id = id;  
+  };
 
  
  getOpponent() {
@@ -46,8 +47,7 @@ class Piece {
       if (absoluteRow >= 0 && absoluteRow <= 7 && absoluteCol >= 0 && absoluteCol <= 7) {
 
        filteredMoves.push(absoluteMove);
-
-      } 
+      };
     } 
     console.log(filteredMoves); 
     return filteredMoves;
@@ -95,11 +95,9 @@ class Piece {
     }else if(this.player === WHITE_PLAYER && this.row === 1){
 
       result.push([this.row+2, this.col])
-
-    }  
+    } ; 
 
     return result;
-
   };
 
   getRookMoves(boardData) {
@@ -119,43 +117,43 @@ class Piece {
 
     let result = [];
 
+    //get all moves on board in given direction with loop.  
+      //direction is defined with both row and col values.
+
     for (let i = 1; i < 8; i++) {
 
-      //get all moves on board in given direction with loop.  
-      //direction is defined with both row and col values.
+      // for every index from 1 to 8 check if:
 
       let row = this.row + directionRow * i;
       let col = this.col + directionCol * i;
 
 
-      // for every index from 1 to 8 check if:
+      
 
       if (boardData.isEmpty(row, col)) { 
 
         result.push([row, col]); 
 
-      } else if (boardData.isPlayer(row, col, this.getOpponent())) {
-
         //if during loop we encounter 'enemy',
         //'give' his position as valid move and break loop.
 
-        
+
+      } else if (boardData.isPlayer(row, col, this.getOpponent())) {
+
         result.push([row, col]);
         return result; 
-
-      } else if (boardData.isPlayer(row, col, this.player)) {
 
         //if during loop we encounter 'friendly',
         //'dont give' his position as valid move and break loop.
 
-        
-        return result; 
 
+      } else if (boardData.isPlayer(row, col, this.player)) {
+
+        return result; 
       };
     } 
     
     return result;
-
   };
 
   getKnightMoves(boardData) {
@@ -212,7 +210,7 @@ class Piece {
     }
     // Small castle conditions.
 
-    if(goldKingDidntMove && leftGoldRookDidntMove && boardData.getPiece(0, 1) === undefined 
+    if(whiteKingDidntMove && leftWhiteRookDidntMove && boardData.getPiece(0, 1) === undefined 
     && boardData.getPiece(0, 2) === undefined){
       if(this.player === WHITE_PLAYER){
        result.push([0, 1]); 
@@ -220,7 +218,7 @@ class Piece {
       
     };  
 
-    if(silverKingDidntMove && leftSilverRookDidntMove && boardData.getPiece(7, 1) === undefined 
+    if(blackKingDidntMove && leftBlackRookDidntMove && boardData.getPiece(7, 1) === undefined 
     && boardData.getPiece(7, 2) === undefined){ 
       if(this.player === BLACK_PLAYER){
         result.push([7, 1]);
@@ -229,7 +227,7 @@ class Piece {
 
     // Big castle conditions.
 
-    if(goldKingDidntMove && rightGoldRookDidntMove && boardData.getPiece(0, 4) === undefined 
+    if(whiteKingDidntMove && rightWhiteRookDidntMove && boardData.getPiece(0, 4) === undefined 
     && boardData.getPiece(0, 5) === undefined && boardData.getPiece(0, 6) === undefined){
 
       if(this.player === WHITE_PLAYER){
@@ -237,7 +235,7 @@ class Piece {
       };  
     };  
 
-    if(silverKingDidntMove && rightSilverRookDidntMove && boardData.getPiece(7, 4) === undefined 
+    if(blackKingDidntMove && rightBlackRookDidntMove && boardData.getPiece(7, 4) === undefined  
     && boardData.getPiece(7, 5) === undefined && boardData.getPiece(7, 6) === undefined){ 
 
       if(this.player === BLACK_PLAYER){
@@ -245,10 +243,6 @@ class Piece {
       }; 
     };  
   
-
-    // TODO: add big castle.
-
-    console.log(result); 
     return result;
   };
 
