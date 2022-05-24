@@ -6,8 +6,8 @@ let boardData;
 let selectedCell; 
 let selectedPiece;
 let winner;
-const WHITE_PLAYER = 'Gold';
-const BLACK_PLAYER = 'Silver'; 
+const WHITE_PLAYER = 'gold';
+const BLACK_PLAYER = 'silver'; 
 let turn = WHITE_PLAYER;  
 const PAWN = 'pawn';
 const ROOK = 'rook';
@@ -48,7 +48,7 @@ function getNewBoard() {
 
 const addImage = (cell, type, player) => {
   image = document.createElement('img');
-  image.src = `./img/${player}_${type}.png`;
+  image.src = `img/${player}_${type}.png`;
   image.classList.add(`${player}Pawns`);
   image.draggable = false; 
   cell.appendChild(image);
